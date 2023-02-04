@@ -1,0 +1,19 @@
+{
+  "name": "com.thiriob.uses",
+  "version": "0.1.2",
+  "displayName": "Unity Scriptable Event System",
+  "description": "Scriptable event system for unity",
+  "unity": "2020.2",
+  "type": "tool",
+  "author": {
+    "name": "Gaspard Thirion",
+    "email": "gaspard.thirion@gmail.com"
+  },
+  "samples": [
+    {
+      "displayName": "Basic sample",
+      "description": "Sample with basic functionalities",
+      "path": "Samples~/Basic Sample"
+    }
+  ]
+}

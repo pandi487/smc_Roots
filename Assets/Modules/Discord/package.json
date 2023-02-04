@@ -1,0 +1,12 @@
+{
+  "name": "com.uleed.discord",
+  "version": "0.1.0",
+  "displayName": "Uleed Discord Module",
+  "description": "",
+  "unity": "2020.2",
+  "type": "tool",
+  "author": {
+    "name": "Uleed",
+    "email": "info@uleed.fr"
+  }
+}

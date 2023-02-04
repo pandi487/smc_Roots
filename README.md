@@ -1,2 +1,2 @@
-# smc_Roots
-GameJam
+# GameJamTemplate
+

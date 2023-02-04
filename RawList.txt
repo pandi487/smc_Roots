@@ -1,0 +1,16 @@
+Et ptet récup des assets de style menu etc, effet camera, ou des trucs utiles
+Faire un projet "template" quoi, avec un peu option par défault, 
+éventuellement un systeme de save très simple
+
+- Menu (Play, Continue, Quit, Credits)  	//gas		*/
+- Element UI menu par défault   		//flo		*/
+- Sons FX (Boutons, Argent, Coup, Gunshot)  	//flo		*/ (pack de la mort)
+- Layers					//flo		*/
+- Fonts						//flo		*/
+- Musiques basiques (action, chill)		//jin		*/ (pack de la mort)
+- Menu option (Sons / Musique avec sliders)	//gas
+- Sauvegarde simple (Bouton save / load)	//gas+flo	*/
+- Système d'events (string)			//gas			
+- Packages effets camera			//flo		*/
+- Timeline					//gas		*/
+- Barre de vie					//?

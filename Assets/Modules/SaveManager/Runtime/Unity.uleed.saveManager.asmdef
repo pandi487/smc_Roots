@@ -1,0 +1,16 @@
+{
+    "name": "Unity.uleed.saveManager",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f67333cf5d2c0454b8904b8547dcab2e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
