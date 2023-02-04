@@ -28,20 +28,20 @@ public class SpawnPoint : MonoBehaviour
 
     IEnumerator CreateNpc()
     {
-        //°ÔÀÓ Á¾·á ½Ã±îÁö ¹«ÇÑ ·çÇÁ
+        //Â°Ã”Ã€Ã“ ÃÂ¾Â·Ã¡ Â½ÃƒÂ±Ã®ÃÃ¶ Â¹Â«Ã‡Ã‘ Â·Ã§Ã‡Ã
         while (!isGameOver)
         {
-            //ÇöÀç »ı¼ºµÈ ¸ó½ºÅÍ °³¼ö »êÃâ
+            //Ã‡Ã¶Ã€Ã§ Â»Ã½Â¼ÂºÂµÃˆ Â¸Ã³Â½ÂºÃ…Ã Â°Â³Â¼Ã¶ Â»ÃªÃƒÃ¢
             int monsterCount = (int)GameObject.FindGameObjectsWithTag("Npc").Length;
 
             if (monsterCount < maxNpc)
             {
-                //¸ó½ºÅÍÀÇ »ı¼º ÁÖ±â ½Ã°£¸¸Å­ ´ë±â
+                //Â¸Ã³Â½ÂºÃ…ÃÃ€Ã‡ Â»Ã½Â¼Âº ÃÃ–Â±Ã¢ Â½ÃƒÂ°Â£Â¸Â¸Ã…Â­ Â´Ã«Â±Ã¢
                 yield return new WaitForSeconds(createTime);
 
-                //ºÒ±ÔÄ¢ÀûÀÎ À§Ä¡ »êÃâ
+                //ÂºÃ’Â±Ã”Ã„Â¢Ã€Ã»Ã€Ã Ã€Â§Ã„Â¡ Â»ÃªÃƒÃ¢
                 int idx = Random.Range(1, points.Length);
-                //¸ó½ºÅÍÀÇ µ¿Àû »ı¼º
+                //Â¸Ã³Â½ÂºÃ…ÃÃ€Ã‡ ÂµÂ¿Ã€Ã» Â»Ã½Â¼Âº
                 Instantiate(NpcPrefab, points[idx].position, points[idx].rotation);
             }
             else

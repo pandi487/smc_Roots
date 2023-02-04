@@ -1,0 +1,18 @@
+{
+    "name": "Unity.thiriob.USES.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d98f9a0708d19554984c49841ad47573"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

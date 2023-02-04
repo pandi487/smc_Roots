@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "209168691046",
+    "firebase_url": "https://gamevrest-16e82.firebaseio.com",
+    "project_id": "gamevrest-16e82",
+    "storage_bucket": "gamevrest-16e82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209168691046:android:97db87ea40a8bdb3f422a7",
+        "android_client_info": {
+          "package_name": "com.Gamevrest.template"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209168691046-c7pgi7hfc7k54sqnkbd8rpl5atjgh8ik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFbpuwWSpK5nZa85r7XFK4ZIGvnJxuHSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209168691046-c7pgi7hfc7k54sqnkbd8rpl5atjgh8ik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
