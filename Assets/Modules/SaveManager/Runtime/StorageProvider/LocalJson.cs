@@ -1,7 +1,7 @@
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using Utf8Json;
+
 
 namespace Modules.SaveManager.Runtime.StorageProvider
 {
@@ -30,7 +30,7 @@ namespace Modules.SaveManager.Runtime.StorageProvider
 
             var path = CreatePath(name);
             var stream = File.Open(path, FileMode.OpenOrCreate);
-            JsonSerializer.Serialize(stream, saveData);
+            //JsonSerializer.Serialize(stream, saveData);
             stream.Close();
             Debug.Log($"{Tag} : Successfully saved {saveData.GetType().Name} to {path}");
         }
@@ -49,10 +49,10 @@ namespace Modules.SaveManager.Runtime.StorageProvider
                 return default;
             }
             var stream = File.Open(path, FileMode.Open);
-            var ret = JsonSerializer.Deserialize<T>(stream);
+            return JsonUtility.FromJson<T>(name);
             stream.Close();
-            Debug.Log($"{Tag} : Successfully loaded {ret.GetType().Name} from {path}");
-            return ret;
+            //Debug.Log($"{Tag} : Successfully loaded {ret.GetType().Name} from {path}");
+            //return ; //ret;
         }
 
         private string CreatePath(string name)
