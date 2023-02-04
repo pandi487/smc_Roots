@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class GameAgeManager : MonoBehaviour
 {
-    public int age = 2023;
-    private int ageIndex = 0;
+    public int age = -347000;
+    private int ageIndex = 6;
 
     public GameObject characterPrefab;
     private List<GameObject> charList = new List<GameObject>();
@@ -69,7 +69,7 @@ public class GameAgeManager : MonoBehaviour
             return CharAppearance.Race.Human;
         if (age > -10022231)
             return CharAppearance.Race.Dinosaur;
-        if (age > -70300523)
+        if (age > -60300523)
             return CharAppearance.Race.Fish;
         if (age > -999999999)
             return CharAppearance.Race.Cell;
@@ -81,17 +81,20 @@ public class GameAgeManager : MonoBehaviour
         Spawner();
     }
 
+	int nb = 0;
     public void Spawner()
     {
         father = (GameObject)Instantiate(characterPrefab);
         father.GetComponent<CharAppearance>().Father = true;
-        father.GetComponent<CharAppearance>().head.GetComponent<SpriteRenderer>().flipY = true;
-        father.name = "FATHER";
+        father.name = "FATHER" + nb++;
+		father.GetComponent<CharAppearance>().race = getRace();
+		father.GetComponent<CharAppearance>().era = getEra();
         father.GetComponent<CharAppearance>().pictureGuyObj = pictureGuy.GetComponent<CharAppearance>();
         for (int i = 1; i < count; i++)
         {
             var tmp = (GameObject)Instantiate(characterPrefab);
             tmp.GetComponent<CharAppearance>().race = getRace();
+			tmp.GetComponent<CharAppearance>().era = getEra();
             charList.Add(tmp);
         }
     }
@@ -100,7 +103,6 @@ public class GameAgeManager : MonoBehaviour
     {
         ageIndex++;
         age = Ages[ageIndex];
-        Debug.Log(age +" "+ ageIndex);
         foreach (var charac in charList)
         {
             Destroy(charac);
@@ -114,6 +116,7 @@ public class GameAgeManager : MonoBehaviour
         Destroy(pictureGuy);
         pictureGuy = father;
         pictureGuy.GetComponent<CharBehavior>().enabled = false;
+		pictureGuy.GetComponent<CharAppearance>().enabled = false;
         Spawner();
         setBackground();
     }
@@ -134,8 +137,13 @@ public class GameAgeManager : MonoBehaviour
             {
                 if(hit.collider.CompareTag("Npc"))
                 {
-                    if (hit.collider.GetComponent<CharAppearance>().isFather(pictureGuy.GetComponent<CharAppearance>()))
+                    if (hit.collider.GetComponent<CharAppearance>().isFather(pictureGuy.GetComponent<CharAppearance>())) {  
+						charList.Add(father);
+						father = hit.collider.gameObject;
+						father.GetComponent<CharAppearance>().pictureGuyObj = pictureGuy.GetComponent<CharAppearance>();
+						charList.Remove(father);
                         NextAge();
+					}
                     else
                         Debug.Log("failure");
                     

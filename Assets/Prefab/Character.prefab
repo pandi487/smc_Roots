@@ -644,6 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277a4fdbcece8cd449087770df87de68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  era: 0
   race: 0
   size: 0
   bodyColors:
@@ -705,9 +706,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ca9d73490ff35ac41b13cdf82accfa7e, type: 3}
   - {fileID: 21300000, guid: ca9d73490ff35ac41b13cdf82accfa7e, type: 3}
   clotheSprites:
-  - {fileID: 21300000, guid: 986c5964814b4f146aaab370fda751ca, type: 3}
-  - {fileID: 21300000, guid: fca6e381ee3b26a4982bb96394735e31, type: 3}
   - {fileID: 21300000, guid: 03157b63b121ae948a4ae3fc1b1af8da, type: 3}
+  - {fileID: 21300000, guid: fca6e381ee3b26a4982bb96394735e31, type: 3}
+  - {fileID: 21300000, guid: 986c5964814b4f146aaab370fda751ca, type: 3}
   - {fileID: 21300000, guid: 9de33bbc31ee5cc48af25a67a1a1cebc, type: 3}
   specialSprites:
   - {fileID: 21300000, guid: ca9d73490ff35ac41b13cdf82accfa7e, type: 3}

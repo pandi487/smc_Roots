@@ -11,6 +11,8 @@ public class CharAppearance : MonoBehaviour
     public enum Race {Human, Alien, Dinosaur, Fish, Cell};
     public enum Size {Normal, Small, Large};
 
+	public int era = 0;
+	
     public Race race = Race.Human;
     public Size size = Size.Normal;
     
@@ -67,12 +69,17 @@ public class CharAppearance : MonoBehaviour
             Randomize();
             makeFather(pictureGuyObj);
         }
+		else
+			Randomize();
     }
 
     public bool isFather(CharAppearance pictureGuy)
     {
         var count = 0;
 
+		if(Father)
+			return true;
+		
         if (body.GetComponent<SpriteRenderer>().color == pictureGuy.body.GetComponent<SpriteRenderer>().color)
             count++;
         if (hair.GetComponent<SpriteRenderer>().sprite.name ==
@@ -126,6 +133,8 @@ public class CharAppearance : MonoBehaviour
             return nose;
         if (attributeName == "mouth")
             return mouth;
+		if (attributeName == "hair")
+            return hair;
         return null;
     }
 
@@ -137,47 +146,49 @@ public class CharAppearance : MonoBehaviour
             head,
             eyes,
             nose,
-            mouth
+            mouth,
+			hair
         };
         GameObject[] other = new GameObject[] {
             eyes,
             nose,
             mouth
         };
-        
-        Debug.Log(pictureGuy.race);
-        int[] randomIndices = Enumerable.Range(0, human.Length).OrderBy(x => Random.value).Take(3).ToArray();
+
+        int[] randomIndices = Enumerable.Range(0, human.Length).OrderBy(x => Random.value).Take(4).ToArray();
 
         GameObject firstRandomElement = eyes;
         GameObject secondRandomElement = nose;
         GameObject thirdRandomElement = mouth;
-        if (pictureGuy.race == Race.Human || pictureGuy.race == Race.Dinosaur)
+		GameObject fourthRandomElement = null;
+        if (race == Race.Human || race == Race.Dinosaur)
         {
             firstRandomElement = human[randomIndices[0]];
             secondRandomElement = human[randomIndices[1]];
             thirdRandomElement = human[randomIndices[2]];
+			fourthRandomElement = human[randomIndices[3]];
         }
 
 
-        Debug.Log("First random elementname: " + firstRandomElement.name.ToLower() + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
+        /*Debug.Log("First random elementname: " + firstRandomElement.name.ToLower() + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
         Debug.Log("Second random elementname: " + secondRandomElement.name.ToLower()+ secondRandomElement.GetComponent<SpriteRenderer>().sprite.name);
-        Debug.Log("Third random elementname: " + thirdRandomElement.name.ToLower());
+        Debug.Log("Third random elementname: " + thirdRandomElement.name.ToLower());*/
         
-        Debug.Log("Attribute father : " + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);
-        Debug.Log("Attribute father2 : " + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);
+        /*Debug.Log("Attribute father : " + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);
+        Debug.Log("Attribute father2 : " + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);*/
         firstRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
         secondRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
         thirdRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
-        
-        Debug.Log("First random element: " + firstRandomElement.name + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
+        if (race == Race.Human || race == Race.Dinosaur)
+			fourthRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(fourthRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+	
+        /*Debug.Log("First random element: " + firstRandomElement.name + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
         Debug.Log("Second random element: " + secondRandomElement.name+ secondRandomElement.GetComponent<SpriteRenderer>().sprite.name);
-        Debug.Log("Third random element: " + thirdRandomElement.name);
+        Debug.Log("Third random element: " + thirdRandomElement.name);*/
     }
     
     void Randomize()
     {
-        if (Father)
-            race = pictureGuyObj.race;
         size = (Size)Random.Range(0, 3);
         
         body.GetComponent<SpriteRenderer>().color = bodyColors[Random.Range(0, bodyColors.Length)];
@@ -185,7 +196,8 @@ public class CharAppearance : MonoBehaviour
         hair.GetComponent<SpriteRenderer>().color = hairColors[Random.Range(0, hairColors.Length)];
         beard.GetComponent<SpriteRenderer>().color = hair.GetComponent<SpriteRenderer>().color;
         eyes.GetComponent<SpriteRenderer>().color = eyesColors[Random.Range(0, eyesColors.Length)];
-        
+        beard.GetComponent<SpriteRenderer>().sprite = transparent;
+		
         if (race == Race.Fish)
             body.GetComponent<SpriteRenderer>().sprite = transparent;
         else if (race == Race.Cell)
@@ -240,8 +252,10 @@ public class CharAppearance : MonoBehaviour
             beard.GetComponent<SpriteRenderer>().sprite = beardSprites[Random.Range(0, beardSprites.Length)];
         }
 
-        if (race != Race.Fish && race != Race.Cell)
-            clothe.GetComponent<SpriteRenderer>().sprite = clotheSprites[Random.Range(0, clotheSprites.Length)];
+        if (era >= 1 && era <= 4){
+			Debug.Log("ERA : " + era);
+			clothe.GetComponent<SpriteRenderer>().sprite = clotheSprites[(era - 1)];
+		}
         else
             clothe.GetComponent<SpriteRenderer>().sprite = transparent;
         special.GetComponent<SpriteRenderer>().sprite = specialSprites[Random.Range(0, specialSprites.Length)];
