@@ -8,13 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Scenes/MainMenu.unity
     guid: 396d1e01d2d3ca54bb206885a13c3a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game Scenes/LevelSelection.unity
     guid: 3173b0dcd873d21428a15924bc7ac5c1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Samples Scenes/Notifications.unity
     guid: 2d70d94e073d742458c476eff536c5f0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Samples Scenes/FontsSamples.unity
     guid: 82e9b8931a278f24cb57fe4d5752df09
+  - enabled: 1
+    path: Assets/Scenes/GameMain.unity
+    guid: d6f35f003173cda4f842e65fcfea3548
   m_configObjects: {}

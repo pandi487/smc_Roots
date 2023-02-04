@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class GameAgeManager : MonoBehaviour
 {
-    public int age = -347000;
-    private int ageIndex = 6;
+    public int age = 2023;
+    private int ageIndex = 0;
 
     public GameObject characterPrefab;
     private List<GameObject> charList = new List<GameObject>();

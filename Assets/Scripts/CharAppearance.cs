@@ -97,7 +97,7 @@ public class CharAppearance : MonoBehaviour
             count++;
         if (eyes.GetComponent<SpriteRenderer>().sprite.name ==
             pictureGuy.eyes.GetComponent<SpriteRenderer>().sprite.name)
-            count++;
+            count += 2;
         if (size == pictureGuy.size && race == Race.Human)
             count++;
 
@@ -155,18 +155,21 @@ public class CharAppearance : MonoBehaviour
             mouth
         };
 
-        int[] randomIndices = Enumerable.Range(0, human.Length).OrderBy(x => Random.value).Take(4).ToArray();
+        int[] randomIndices = Enumerable.Range(0, human.Length).OrderBy(x => Random.value).Take(5).ToArray();
 
         GameObject firstRandomElement = eyes;
         GameObject secondRandomElement = nose;
         GameObject thirdRandomElement = mouth;
 		GameObject fourthRandomElement = null;
+		GameObject fifthRandomElement = null;
         if (race == Race.Human || race == Race.Dinosaur)
         {
+			body.GetComponent<SpriteRenderer>().color = pictureGuy.body.GetComponent<SpriteRenderer>().color;
             firstRandomElement = human[randomIndices[0]];
             secondRandomElement = human[randomIndices[1]];
             thirdRandomElement = human[randomIndices[2]];
 			fourthRandomElement = human[randomIndices[3]];
+			fifthRandomElement = human[randomIndices[4]];
         }
 
 
@@ -179,8 +182,10 @@ public class CharAppearance : MonoBehaviour
         firstRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
         secondRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
         thirdRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
-        if (race == Race.Human || race == Race.Dinosaur)
+        if (race == Race.Human || race == Race.Dinosaur) {
 			fourthRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(fourthRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+			fifthRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(fifthRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+		}
 	
         /*Debug.Log("First random element: " + firstRandomElement.name + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
         Debug.Log("Second random element: " + secondRandomElement.name+ secondRandomElement.GetComponent<SpriteRenderer>().sprite.name);
