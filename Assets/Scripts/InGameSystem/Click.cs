@@ -18,7 +18,7 @@ public class Click : MonoBehaviour
                 Debug.Log(hit.collider);
                 if(hit.collider.gameObject.tag == "Npc")
                 {
-                    Debug.Log("npc 를 클릭했습니다");
+                    Debug.Log("npc click");
                 }
             }
         }
