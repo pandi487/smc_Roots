@@ -157,15 +157,15 @@ SpriteRenderer:
   m_SortingLayerID: 1712085159
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a6f6efa90c24e464e88f610520a6725e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca9d73490ff35ac41b13cdf82accfa7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.18, y: 8.07}
+  m_Size: {x: 0.01, y: 0.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1175828922193061045
@@ -617,7 +617,7 @@ Transform:
   m_GameObject: {fileID: 1175828922859617915}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1175828922497935285}
@@ -781,6 +781,8 @@ MonoBehaviour:
   mouth: {fileID: 1175828922671033424}
   clothe: {fileID: 1175828921728372704}
   special: {fileID: 1175828922279492797}
+  Father: 0
+  pictureGuyObj: {fileID: 0}
 --- !u!114 &3655690274100099881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,14 +991,14 @@ SpriteRenderer:
   m_SortingLayerID: 1712085159
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ca9d73490ff35ac41b13cdf82accfa7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.18, y: 8.07}
+  m_Size: {x: 0.01, y: 0.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

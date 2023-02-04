@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using Modules.Lib2D.Runtime;
+using Random = UnityEngine.Random;
 
 public class CharBehavior : CharacterController2D
 {
@@ -8,6 +10,7 @@ public class CharBehavior : CharacterController2D
     [SerializeField] private Transform target;
     void Start()
     {
+        transform.position = new Vector3(Random.Range(-16f, 16f), Random.Range(-10f, 2f), 0);
         tarBody = new GameObject();
         target = tarBody.transform;
         MoveToNewTarget();
@@ -22,7 +25,7 @@ public class CharBehavior : CharacterController2D
 
     void NewPos()
     {
-        target.position = new Vector3(Random.Range(-20f, 20f), Random.Range(-10f, 10f), 0);
+        target.position = new Vector3(Random.Range(-16f, 16f), Random.Range(-10f, 3f), 0);
     }
 
     void flip(bool left)

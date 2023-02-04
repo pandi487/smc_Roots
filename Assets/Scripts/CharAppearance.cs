@@ -73,7 +73,7 @@ public class CharAppearance : MonoBehaviour
     {
         var count = 0;
 
-        if (body.GetComponent<SpriteRenderer>().color == pictureGuy.GetComponent<SpriteRenderer>().color)
+        if (body.GetComponent<SpriteRenderer>().color == pictureGuy.body.GetComponent<SpriteRenderer>().color)
             count++;
         if (hair.GetComponent<SpriteRenderer>().sprite.name ==
             pictureGuy.hair.GetComponent<SpriteRenderer>().sprite.name
@@ -178,8 +178,6 @@ public class CharAppearance : MonoBehaviour
     {
         if (Father)
             race = pictureGuyObj.race;
-        else
-            race = (Race)Random.Range(0, 5);
         size = (Size)Random.Range(0, 3);
         
         body.GetComponent<SpriteRenderer>().color = bodyColors[Random.Range(0, bodyColors.Length)];

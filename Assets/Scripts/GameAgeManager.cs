@@ -1,19 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameAgeManager : MonoBehaviour
 {
-    public int Age = 2023;
+    public int age = 2023;
+    private int ageIndex = 0;
 
-    public Image bgTop;
-    public Image bgDown;
+    public GameObject characterPrefab;
+    private List<GameObject> charList = new List<GameObject>();
 
-    public Image[] bgTops;
-    public Image[] bgBots;
+    public GameObject pictureGuy;
+    private GameObject father;
+    public int count = 20;
     
-    private int[] Ages = new int[]
+    public Image background;
+
+    public Sprite[] backgrounds;
+    
+    private readonly int[] Ages = new int[]
     {
         2023, //1 today
         1960,
@@ -26,40 +34,113 @@ public class GameAgeManager : MonoBehaviour
         -1332678, //5 volcano
         -4003823, 
         -10022231, //6 fish
-        -60300523,
+        -20300523,
+        -60300523, //6 cell
+        -70300523,
         -999999999//7 alien
     };
-
+    
     int getEra()
     {
-        if (Age > 1500)
+        if (age > 1500)
             return 1;
-        if (Age > -10000)
+        if (age > -10000)
             return 2;
-        if (Age > -102000)
+        if (age > -102000)
             return 3;
-        if (Age > -1332678)
+        if (age > -1332678)
             return 4;
-        if (Age > -10022231)
+        if (age > -10022231)
             return 5;
-        if (Age > -999999999)
+        if (age > -999999999)
             return 6;
         return 7;
     }
-    // Start is called before the first frame update
-    void Start()
+    
+    CharAppearance.Race getRace()
     {
-        
+        if (age > 1500)
+            return CharAppearance.Race.Human;
+        if (age > -10000)
+            return CharAppearance.Race.Human;
+        if (age > -102000)
+            return CharAppearance.Race.Human;
+        if (age > -1332678)
+            return CharAppearance.Race.Human;
+        if (age > -10022231)
+            return CharAppearance.Race.Dinosaur;
+        if (age > -70300523)
+            return CharAppearance.Race.Fish;
+        if (age > -999999999)
+            return CharAppearance.Race.Cell;
+        return CharAppearance.Race.Alien;
     }
 
+    public void Start()
+    {
+        Spawner();
+    }
+
+    public void Spawner()
+    {
+        father = (GameObject)Instantiate(characterPrefab);
+        father.GetComponent<CharAppearance>().Father = true;
+        father.GetComponent<CharAppearance>().head.GetComponent<SpriteRenderer>().flipY = true;
+        father.name = "FATHER";
+        father.GetComponent<CharAppearance>().pictureGuyObj = pictureGuy.GetComponent<CharAppearance>();
+        for (int i = 1; i < count; i++)
+        {
+            var tmp = (GameObject)Instantiate(characterPrefab);
+            tmp.GetComponent<CharAppearance>().race = getRace();
+            charList.Add(tmp);
+        }
+    }
+    
+    void NextAge()
+    {
+        ageIndex++;
+        age = Ages[ageIndex];
+        Debug.Log(age +" "+ ageIndex);
+        foreach (var charac in charList)
+        {
+            Destroy(charac);
+        }
+        father.transform.position = pictureGuy.transform.position;
+        var sprites = father.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sprite in sprites)
+        {
+            sprite.sortingLayerName = "UI";
+        }
+        Destroy(pictureGuy);
+        pictureGuy = father;
+        pictureGuy.GetComponent<CharBehavior>().enabled = false;
+        Spawner();
+        setBackground();
+    }
     void setBackground()
     {
-        
+        background.sprite = backgrounds[getEra() - 1];
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector2 pos = this.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+            if(hit.collider != null)
+            {
+                if(hit.collider.CompareTag("Npc"))
+                {
+                    if (hit.collider.GetComponent<CharAppearance>().isFather(pictureGuy.GetComponent<CharAppearance>()))
+                        NextAge();
+                    else
+                        Debug.Log("failure");
+                    
+                }
+            }
+        }
     }
 }
