@@ -7,7 +7,7 @@ public class Robot : CharacterController2D
     void Start()
     {
         LookAt2D(target);
-        MoveTo2D(target, callback:() => {Debug.Log("COUCOU");});
+        MoveTo2D(target, callback: () => {Debug.Log("COUCOU");});
     }
 
 }

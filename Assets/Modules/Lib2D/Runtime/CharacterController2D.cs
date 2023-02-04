@@ -11,7 +11,8 @@ namespace Modules.Lib2D.Runtime
         private Transform following;
         private float movingSpeed = 1f;
         private Action arrivalCallback;
-        void FixedUpdate()
+
+        public void FixedUpdate()
         {
             if (lookingAt)
                 global::Modules.Lib2D.Runtime.Lib2D.LookAt2D(transform, lookingAt);
@@ -27,8 +28,8 @@ namespace Modules.Lib2D.Runtime
 
         private void OnArrival()
         {
-            arrivalCallback?.Invoke();
             moving = false;
+            arrivalCallback?.Invoke();
         }
     
         #region public functions

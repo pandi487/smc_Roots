@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Color = UnityEngine.Color;
 using Random = UnityEngine.Random;
@@ -47,15 +50,136 @@ public class CharAppearance : MonoBehaviour
     public GameObject mouth;
     public GameObject clothe;
     public GameObject special;
-    
-    void Start()
+
+    public bool Father = false;
+    public CharAppearance pictureGuyObj;
+
+    private void Awake()
     {
-        Randomize();
+        if (!Father)
+            Randomize();
     }
 
+    void Start()
+    {
+        if (Father)
+        {
+            Randomize();
+            makeFather(pictureGuyObj);
+        }
+    }
+
+    public bool isFather(CharAppearance pictureGuy)
+    {
+        var count = 0;
+
+        if (body.GetComponent<SpriteRenderer>().color == pictureGuy.GetComponent<SpriteRenderer>().color)
+            count++;
+        if (hair.GetComponent<SpriteRenderer>().sprite.name ==
+            pictureGuy.hair.GetComponent<SpriteRenderer>().sprite.name
+            && hair.GetComponent<SpriteRenderer>().color == pictureGuy.hair.GetComponent<SpriteRenderer>().color)
+            count++;
+        if (nose.GetComponent<SpriteRenderer>().sprite.name ==
+            pictureGuy.nose.GetComponent<SpriteRenderer>().sprite.name)
+            count++;
+        if (mouth.GetComponent<SpriteRenderer>().sprite.name ==
+            pictureGuy.mouth.GetComponent<SpriteRenderer>().sprite.name)
+            count++;
+        if (beard.GetComponent<SpriteRenderer>().sprite.name ==
+            pictureGuy.beard.GetComponent<SpriteRenderer>().sprite.name)
+            count++;
+        if (eyes.GetComponent<SpriteRenderer>().sprite.name ==
+            pictureGuy.eyes.GetComponent<SpriteRenderer>().sprite.name)
+            count++;
+        if (size == pictureGuy.size && race == Race.Human)
+            count++;
+
+        if (count >= 3)
+            return true;
+        return false;
+    }
+    
+    /*public GameObject AccessAttribute(string attributeName)
+    {
+        Type type = this.GetType();
+        PropertyInfo property = type.GetProperty(attributeName);
+        if (property != null)
+        {
+            return (GameObject)property.GetValue(this);
+        }
+        else
+        {
+            return null;
+        }
+    }*/
+    public GameObject AccessAttribute(string attributeName)
+    {
+        if (attributeName == "body")
+            return body;
+        if (attributeName == "beard")
+            return beard;
+        if (attributeName == "head")
+            return head;
+        if (attributeName == "eyes")
+            return eyes;
+        if (attributeName == "nose")
+            return nose;
+        if (attributeName == "mouth")
+            return mouth;
+        return null;
+    }
+
+    public void makeFather(CharAppearance pictureGuy)
+    {
+        GameObject[] human = new GameObject[] {
+            body,
+            beard,
+            head,
+            eyes,
+            nose,
+            mouth
+        };
+        GameObject[] other = new GameObject[] {
+            eyes,
+            nose,
+            mouth
+        };
+        
+        Debug.Log(pictureGuy.race);
+        int[] randomIndices = Enumerable.Range(0, human.Length).OrderBy(x => Random.value).Take(3).ToArray();
+
+        GameObject firstRandomElement = eyes;
+        GameObject secondRandomElement = nose;
+        GameObject thirdRandomElement = mouth;
+        if (pictureGuy.race == Race.Human || pictureGuy.race == Race.Dinosaur)
+        {
+            firstRandomElement = human[randomIndices[0]];
+            secondRandomElement = human[randomIndices[1]];
+            thirdRandomElement = human[randomIndices[2]];
+        }
+
+
+        Debug.Log("First random elementname: " + firstRandomElement.name.ToLower() + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
+        Debug.Log("Second random elementname: " + secondRandomElement.name.ToLower()+ secondRandomElement.GetComponent<SpriteRenderer>().sprite.name);
+        Debug.Log("Third random elementname: " + thirdRandomElement.name.ToLower());
+        
+        Debug.Log("Attribute father : " + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);
+        Debug.Log("Attribute father2 : " + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);
+        firstRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+        secondRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+        thirdRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+        
+        Debug.Log("First random element: " + firstRandomElement.name + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
+        Debug.Log("Second random element: " + secondRandomElement.name+ secondRandomElement.GetComponent<SpriteRenderer>().sprite.name);
+        Debug.Log("Third random element: " + thirdRandomElement.name);
+    }
+    
     void Randomize()
     {
-        race = (Race)Random.Range(0, 5);
+        if (Father)
+            race = pictureGuyObj.race;
+        else
+            race = (Race)Random.Range(0, 5);
         size = (Size)Random.Range(0, 3);
         
         body.GetComponent<SpriteRenderer>().color = bodyColors[Random.Range(0, bodyColors.Length)];
@@ -115,6 +239,7 @@ public class CharAppearance : MonoBehaviour
             eyes.GetComponent<SpriteRenderer>().sprite = eyesSprites[Random.Range(0, eyesSprites.Length)];
             nose.GetComponent<SpriteRenderer>().sprite = noseSprites[Random.Range(0, noseSprites.Length)];
             mouth.GetComponent<SpriteRenderer>().sprite = mouthSprites[Random.Range(0, mouthSprites.Length)];
+            beard.GetComponent<SpriteRenderer>().sprite = beardSprites[Random.Range(0, beardSprites.Length)];
         }
 
         if (race != Race.Fish && race != Race.Cell)
