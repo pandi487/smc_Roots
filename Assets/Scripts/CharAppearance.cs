@@ -258,7 +258,6 @@ public class CharAppearance : MonoBehaviour
         }
 
         if (era >= 1 && era <= 4){
-			Debug.Log("ERA : " + era);
 			clothe.GetComponent<SpriteRenderer>().sprite = clotheSprites[(era - 1)];
 		}
         else

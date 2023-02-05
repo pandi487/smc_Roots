@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameManagerSystem;
+using GamevrestUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +15,11 @@ public class GameAgeManager : MonoBehaviour
     public GameObject characterPrefab;
     private List<GameObject> charList = new List<GameObject>();
 
+    public SceneReference gameWin;
+    public SceneReference gameOver;
+
+    public GameObject obstacle;
+    public Sprite[] obstacles;
     public GameObject pictureGuy;
     private GameObject father;
     public int count = 20;
@@ -101,7 +108,14 @@ public class GameAgeManager : MonoBehaviour
     
     void NextAge()
     {
+        if (ageIndex == Ages.Length - 1)
+        {
+            PersistentObject.GetSceneManager().LoadScene(gameWin);
+            return;
+        }
+
         ageIndex++;
+        obstacle.GetComponent<SpriteRenderer>().sprite = obstacles[(ageIndex / 2)];
         age = Ages[ageIndex];
         foreach (var charac in charList)
         {
@@ -128,6 +142,8 @@ public class GameAgeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+            NextAge();
         if(Input.GetMouseButtonDown(0))
         {
             Vector2 pos = this.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);

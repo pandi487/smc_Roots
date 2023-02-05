@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class CharBehavior : CharacterController2D
 {
-    public bool isFather = false;
     private GameObject tarBody;
+    public float speed = 1f;
     [SerializeField] private Transform target;
     void Start()
     {
@@ -20,7 +20,7 @@ public class CharBehavior : CharacterController2D
     {
         NewPos();
         flip(target.position.x < transform.position.x);
-        MoveTo2D(target, callback:MoveToNewTarget);
+        MoveTo2D(target, speed, callback:MoveToNewTarget);
     }
 
     void NewPos()
