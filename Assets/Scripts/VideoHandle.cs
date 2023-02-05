@@ -1,3 +1,4 @@
+using System;
 using GameManagerSystem;
 using GamevrestUtils;
 using UnityEngine;
@@ -17,5 +18,11 @@ public class VideoHandle : MonoBehaviour
     private void VideoFinished(VideoPlayer vp)
     {
         SceneManager.LoadScene("GameMain");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            SceneManager.LoadScene("GameMain");
     }
 }

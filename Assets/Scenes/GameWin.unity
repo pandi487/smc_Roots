@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d4d8c0ade2479f449b1de284cb1ce8ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 038e491ced7c1244fb6aaa73106d9efd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -312,6 +312,11 @@ PrefabInstance:
       value: Sound.MixerController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1497854456024292841, guid: c492c187ebd99be4e8f21820ef771d3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497854456289083106, guid: c492c187ebd99be4e8f21820ef771d3f,
         type: 3}
       propertyPath: m_IsActive
       value: 1

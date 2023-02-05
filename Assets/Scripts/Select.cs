@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Select : MonoBehaviour
 {
-
+    [SerializeField] private Phone phone;
     public CharAppearance pictureGuy;
 
     // Update is called once per frame

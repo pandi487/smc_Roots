@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using GameManagerSystem;
 using GamevrestUtils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameAgeManager : MonoBehaviour
 {
+    public Clock clock;
+    public ClickEffect effect;
+    public Phone phone;
     public int age = 2023;
     private int ageIndex = 0;
 
@@ -16,10 +20,14 @@ public class GameAgeManager : MonoBehaviour
     private List<GameObject> charList = new List<GameObject>();
 
     public SceneReference gameWin;
-    public SceneReference gameOver;
+    public Text yeaText;
+    public TextMeshProUGUI yearText;
 
     public GameObject obstacle;
     public Sprite[] obstacles;
+    public AudioSource music;
+    public AudioClip[] musics;
+    
     public GameObject pictureGuy;
     private GameObject father;
     public int count = 20;
@@ -85,7 +93,10 @@ public class GameAgeManager : MonoBehaviour
 
     public void Start()
     {
+        music = GetComponent<AudioSource>();
         Spawner();
+        music.Play();
+        yearText.text = "2023";
     }
 
 	int nb = 0;
@@ -105,18 +116,37 @@ public class GameAgeManager : MonoBehaviour
             charList.Add(tmp);
         }
     }
-    
+
+    void ChangeMusic()
+    {
+        if (music.clip == musics[(ageIndex / 2)])
+            return;
+        var stoppedTime = music.time;
+        music.Stop();
+        music.clip = musics[(ageIndex / 2)];
+        if (music.clip.length >= stoppedTime)
+            music.time = stoppedTime;
+        music.Play();
+    }
+
+    private bool clicked = false;
     void NextAge()
     {
         if (ageIndex == Ages.Length - 1)
         {
+            if (clicked)
+                return;
+            clicked = true;
             PersistentObject.GetSceneManager().LoadScene(gameWin);
             return;
         }
 
         ageIndex++;
+
         obstacle.GetComponent<SpriteRenderer>().sprite = obstacles[(ageIndex / 2)];
+        ChangeMusic();
         age = Ages[ageIndex];
+        yearText.text = age.ToString();
         foreach (var charac in charList)
         {
             Destroy(charac);
@@ -133,6 +163,7 @@ public class GameAgeManager : MonoBehaviour
 		pictureGuy.GetComponent<CharAppearance>().enabled = false;
         Spawner();
         setBackground();
+        clock.NextAge();
     }
     void setBackground()
     {
@@ -142,8 +173,11 @@ public class GameAgeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space)) 
             NextAge();
+#endif
+        
         if(Input.GetMouseButtonDown(0))
         {
             Vector2 pos = this.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
@@ -153,18 +187,37 @@ public class GameAgeManager : MonoBehaviour
             {
                 if(hit.collider.CompareTag("Npc"))
                 {
-                    if (hit.collider.GetComponent<CharAppearance>().isFather(pictureGuy.GetComponent<CharAppearance>())) {  
-						charList.Add(father);
-						father = hit.collider.gameObject;
-						father.GetComponent<CharAppearance>().pictureGuyObj = pictureGuy.GetComponent<CharAppearance>();
-						charList.Remove(father);
-                        NextAge();
-					}
-                    else
-                        Debug.Log("failure");
-                    
+                    phone.PopupPhone();
+                    phone.target = hit.collider.gameObject;
+
                 }
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            phone.UnPopupPhone();
+        }
+    }
+
+    public void CheckFather()
+    {
+        if (phone.target.GetComponent<CharAppearance>().isFather(pictureGuy.GetComponent<CharAppearance>())) {  
+            charList.Add(father);
+            father = phone.target.gameObject;
+            father.GetComponent<CharAppearance>().pictureGuyObj = pictureGuy.GetComponent<CharAppearance>();
+            charList.Remove(father);
+            phone.target = null;
+            phone.UnPopupPhone();
+            phone.Click(); 
+            effect.StartClick();
+            NextAge();
+        }
+        else
+        {
+            Debug.Log("failure");
+            phone.WrongAnswer();
+            phone.Wrong();
         }
     }
 }
