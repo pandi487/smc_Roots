@@ -182,7 +182,6 @@ public class GameAgeManager : MonoBehaviour
         {
             Vector2 pos = this.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-
             if(hit.collider != null)
             {
                 if(hit.collider.CompareTag("Npc"))
@@ -215,7 +214,6 @@ public class GameAgeManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("failure");
             phone.WrongAnswer();
             phone.Wrong();
         }

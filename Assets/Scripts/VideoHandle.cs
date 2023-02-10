@@ -9,9 +9,11 @@ using SceneManager = UnityEngine.SceneManagement.SceneManager;
 public class VideoHandle : MonoBehaviour
 {
     public VideoPlayer videoPlayer;
-    public SceneReference game;
+    
     private void Start()
     {
+        videoPlayer.url = System.IO.Path.Combine (Application.streamingAssetsPath,"Video.mp4");
+        videoPlayer.Play();
         videoPlayer.loopPointReached += VideoFinished;
     }
 

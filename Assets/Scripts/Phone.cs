@@ -12,7 +12,7 @@ public class Phone : MonoBehaviour
     public GameObject target;
     [SerializeField]
     Animator anim;
-    public Camera camera;
+    public Camera phoneCamera;
     [SerializeField]
     private RectTransform rectTransform;
     [SerializeField]
@@ -23,27 +23,27 @@ public class Phone : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        camera.transform.position = Vector3.back * 40;
+        phoneCamera.transform.position = Vector3.back * 40;
         float camHorizontal = rectTransform.rect.width / (float)Screen.width - bezeloffset;  
         float camVertical = rectTransform.rect.height / (float)Screen.height - bezeloffset;
         float camX = rectTransform.position.x / (float)Screen.width ;
         float camY = rectTransform.position.y / (float)Screen.height;
         camX -= camHorizontal * 1 / 2;
         camY -= camVertical * 1 / 2;
-        camera.rect = new Rect(camX, camY, camHorizontal, camVertical);
+        phoneCamera.rect = new Rect(camX, camY, camHorizontal, camVertical);
     }
 
     private void LateUpdate()
     {
         if(target != null)
-            camera.transform.position = target.transform.position + Vector3.back * 40;
+            phoneCamera.transform.position = target.transform.position + Vector3.back * 40;
         float camHorizontal = rectTransform.rect.width / (float)Screen.width - bezeloffset;  
         float camVertical = rectTransform.rect.height / (float)Screen.height - bezeloffset;
         float camX = rectTransform.position.x / (float)Screen.width ;
         float camY = rectTransform.position.y / (float)Screen.height;
         camX -= camHorizontal * 1 / 2;
         camY -= camVertical * 1 / 2;
-        camera.rect = new Rect(camX,camY, camHorizontal, camVertical);
+        phoneCamera.rect = new Rect(camX,camY, camHorizontal, camVertical);
     }
 
     public void PopupPhone()
