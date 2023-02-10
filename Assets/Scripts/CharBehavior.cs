@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Modules.Lib2D.Runtime;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class CharBehavior : CharacterController2D

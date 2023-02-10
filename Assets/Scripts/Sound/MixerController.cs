@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Sound
@@ -6,12 +7,16 @@ namespace Sound
 	public class MixerController : MonoBehaviour {
 
 		public AudioMixer audioMixer;
-
-		public void SetMusicVolume(float volume) {
+		public void SetMusicVolume(float volume)
+		{
+			if (volume <= -40)
+				volume = -80;
 			audioMixer.SetFloat("musicVolume", volume);
 		}
 	
 		public void SetSfxVolume(float volume) {
+			if (volume <= -40)
+				volume = -80;
 			audioMixer.SetFloat("sfxVolume", volume);
 		}
 

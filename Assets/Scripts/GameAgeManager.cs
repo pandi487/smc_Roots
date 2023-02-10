@@ -20,7 +20,6 @@ public class GameAgeManager : MonoBehaviour
     private List<GameObject> charList = new List<GameObject>();
 
     public SceneReference gameWin;
-    public Text yeaText;
     public TextMeshProUGUI yearText;
 
     public GameObject obstacle;
@@ -121,11 +120,8 @@ public class GameAgeManager : MonoBehaviour
     {
         if (music.clip == musics[(ageIndex / 2)])
             return;
-        var stoppedTime = music.time;
         music.Stop();
         music.clip = musics[(ageIndex / 2)];
-        if (music.clip.length >= stoppedTime)
-            music.time = stoppedTime;
         music.Play();
     }
 
@@ -160,7 +156,9 @@ public class GameAgeManager : MonoBehaviour
         Destroy(pictureGuy);
         pictureGuy = father;
         pictureGuy.GetComponent<CharBehavior>().enabled = false;
-		pictureGuy.GetComponent<CharAppearance>().enabled = false;
+        pictureGuy.GetComponent<CharAppearance>().enabled = false;
+        pictureGuy.GetComponent<CircleCollider2D>().enabled = false;
+        pictureGuy.GetComponent<CapsuleCollider2D>().enabled = false;
         Spawner();
         setBackground();
         clock.NextAge();
@@ -188,7 +186,6 @@ public class GameAgeManager : MonoBehaviour
                 {
                     phone.PopupPhone();
                     phone.target = hit.collider.gameObject;
-
                 }
             }
         }

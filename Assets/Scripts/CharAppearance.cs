@@ -162,26 +162,53 @@ public class CharAppearance : MonoBehaviour
         GameObject thirdRandomElement = mouth;
 		GameObject fourthRandomElement = null;
 		GameObject fifthRandomElement = null;
+        head.GetComponent<SpriteRenderer>().color = pictureGuy.head.GetComponent<SpriteRenderer>().color;
         if (race == Race.Human || race == Race.Dinosaur)
         {
-			body.GetComponent<SpriteRenderer>().color = pictureGuy.body.GetComponent<SpriteRenderer>().color;
+            body.GetComponent<SpriteRenderer>().color = pictureGuy.body.GetComponent<SpriteRenderer>().color;
             firstRandomElement = human[randomIndices[0]];
             secondRandomElement = human[randomIndices[1]];
             thirdRandomElement = human[randomIndices[2]];
 			fourthRandomElement = human[randomIndices[3]];
 			fifthRandomElement = human[randomIndices[4]];
         }
+        if (race == Race.Fish && pictureGuy.race != Race.Fish)
+        {
+            firstRandomElement.GetComponent<SpriteRenderer>().sprite = fishEyesSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+            secondRandomElement.GetComponent<SpriteRenderer>().sprite = fishNoseSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+            thirdRandomElement.GetComponent<SpriteRenderer>().sprite = fishMouthSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+        }
+        else if (race == Race.Cell && pictureGuy.race != Race.Cell)
+        {
+            firstRandomElement.GetComponent<SpriteRenderer>().sprite = cellEyesSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+            secondRandomElement.GetComponent<SpriteRenderer>().sprite = cellNoseSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+            thirdRandomElement.GetComponent<SpriteRenderer>().sprite = cellMouthSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+        }
+        else if (race == Race.Alien && pictureGuy.race != Race.Alien)
+        {
+            firstRandomElement.GetComponent<SpriteRenderer>().sprite = eyesSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+            secondRandomElement.GetComponent<SpriteRenderer>().sprite = noseSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+            thirdRandomElement.GetComponent<SpriteRenderer>().sprite = mouthSprites[Int32.Parse(pictureGuy
+                .AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name[^1].ToString()) - 1];
+        }
+        else
+        {
+            firstRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy
+                .AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+            secondRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy
+                .AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+            thirdRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy
+                .AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
+        }
 
-
-        /*Debug.Log("First random elementname: " + firstRandomElement.name.ToLower() + firstRandomElement.GetComponent<SpriteRenderer>().sprite.name);
-        Debug.Log("Second random elementname: " + secondRandomElement.name.ToLower()+ secondRandomElement.GetComponent<SpriteRenderer>().sprite.name);
-        Debug.Log("Third random elementname: " + thirdRandomElement.name.ToLower());*/
-        
-        /*Debug.Log("Attribute father : " + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);
-        Debug.Log("Attribute father2 : " + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()) + pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite.name);*/
-        firstRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(firstRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
-        secondRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(secondRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
-        thirdRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(thirdRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
         if (race == Race.Human || race == Race.Dinosaur) {
 			fourthRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(fourthRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
 			fifthRandomElement.GetComponent<SpriteRenderer>().sprite = pictureGuy.AccessAttribute(fifthRandomElement.name.ToLower()).GetComponent<SpriteRenderer>().sprite;
